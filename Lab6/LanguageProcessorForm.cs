@@ -203,14 +203,26 @@ namespace Lab6
             StaticData.commands.CommandCheck();
         }
 
+        //Grammar
         private void TaskStatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Help.ShowHelp(null, "../../task/states.html");
+            Help.ShowHelp(null, "../../task/grammar.html");
         }
 
+        //Language
         private void TaskTransitionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Help.ShowHelp(null, "../../task/transitions.html");
+            Help.ShowHelp(null, "../../task/language.html");
+        }
+
+        private void RecClassificationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(null, "../../task/classification.html");
+        }
+
+        private void RecExampleToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(null, "../../task/example.html");
         }
     }
 

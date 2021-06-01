@@ -58,8 +58,8 @@
             this.StripMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.заданиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TaskStatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TaskTransitionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RecGrammarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RecLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripCreate = new System.Windows.Forms.ToolStripButton();
             this.toolStripOpen = new System.Windows.Forms.ToolStripButton();
@@ -81,6 +81,8 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.StatusStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.RecClassificationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RecExampleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -318,39 +320,41 @@
             this.StripMenuHelp.Name = "StripMenuHelp";
             this.StripMenuHelp.ShortcutKeyDisplayString = "F1";
             this.StripMenuHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.StripMenuHelp.Size = new System.Drawing.Size(175, 22);
+            this.StripMenuHelp.Size = new System.Drawing.Size(180, 22);
             this.StripMenuHelp.Text = "Вызов справки";
             this.StripMenuHelp.Click += new System.EventHandler(this.StripMenuHelp_Click);
             // 
             // StripMenuAbout
             // 
             this.StripMenuAbout.Name = "StripMenuAbout";
-            this.StripMenuAbout.Size = new System.Drawing.Size(175, 22);
+            this.StripMenuAbout.Size = new System.Drawing.Size(180, 22);
             this.StripMenuAbout.Text = "О программе";
             this.StripMenuAbout.Click += new System.EventHandler(this.StripMenuAbout_Click);
             // 
             // заданиеToolStripMenuItem
             // 
             this.заданиеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TaskStatesToolStripMenuItem,
-            this.TaskTransitionsToolStripMenuItem});
+            this.RecGrammarToolStripMenuItem,
+            this.RecLanguageToolStripMenuItem,
+            this.RecClassificationToolStripMenuItem,
+            this.RecExampleToolStripMenuItem1});
             this.заданиеToolStripMenuItem.Name = "заданиеToolStripMenuItem";
-            this.заданиеToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.заданиеToolStripMenuItem.Text = "Задание";
+            this.заданиеToolStripMenuItem.Size = new System.Drawing.Size(127, 20);
+            this.заданиеToolStripMenuItem.Text = "Рекурсивный спуск";
             // 
-            // TaskStatesToolStripMenuItem
+            // RecGrammarToolStripMenuItem
             // 
-            this.TaskStatesToolStripMenuItem.Name = "TaskStatesToolStripMenuItem";
-            this.TaskStatesToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.TaskStatesToolStripMenuItem.Text = "Множество состояний";
-            this.TaskStatesToolStripMenuItem.Click += new System.EventHandler(this.TaskStatesToolStripMenuItem_Click);
+            this.RecGrammarToolStripMenuItem.Name = "RecGrammarToolStripMenuItem";
+            this.RecGrammarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RecGrammarToolStripMenuItem.Text = "Грамматика";
+            this.RecGrammarToolStripMenuItem.Click += new System.EventHandler(this.TaskStatesToolStripMenuItem_Click);
             // 
-            // TaskTransitionsToolStripMenuItem
+            // RecLanguageToolStripMenuItem
             // 
-            this.TaskTransitionsToolStripMenuItem.Name = "TaskTransitionsToolStripMenuItem";
-            this.TaskTransitionsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.TaskTransitionsToolStripMenuItem.Text = "Функция переходов";
-            this.TaskTransitionsToolStripMenuItem.Click += new System.EventHandler(this.TaskTransitionsToolStripMenuItem_Click);
+            this.RecLanguageToolStripMenuItem.Name = "RecLanguageToolStripMenuItem";
+            this.RecLanguageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RecLanguageToolStripMenuItem.Text = "Язык";
+            this.RecLanguageToolStripMenuItem.Click += new System.EventHandler(this.TaskTransitionsToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -582,6 +586,20 @@
             this.splitContainer1.SplitterDistance = 184;
             this.splitContainer1.TabIndex = 5;
             // 
+            // RecClassificationToolStripMenuItem
+            // 
+            this.RecClassificationToolStripMenuItem.Name = "RecClassificationToolStripMenuItem";
+            this.RecClassificationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RecClassificationToolStripMenuItem.Text = "Классификация";
+            this.RecClassificationToolStripMenuItem.Click += new System.EventHandler(this.RecClassificationToolStripMenuItem_Click);
+            // 
+            // RecExampleToolStripMenuItem1
+            // 
+            this.RecExampleToolStripMenuItem1.Name = "RecExampleToolStripMenuItem1";
+            this.RecExampleToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.RecExampleToolStripMenuItem1.Text = "Тестовый пример";
+            this.RecExampleToolStripMenuItem1.Click += new System.EventHandler(this.RecExampleToolStripMenuItem1_Click);
+            // 
             // LanguageProcessorForm
             // 
             this.AllowDrop = true;
@@ -665,8 +683,10 @@
         private System.Windows.Forms.ToolStripLabel StatusStripLabel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem заданиеToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TaskStatesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TaskTransitionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RecGrammarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RecLanguageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RecClassificationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RecExampleToolStripMenuItem1;
     }
 }
 
