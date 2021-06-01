@@ -9,82 +9,253 @@ namespace Lab6
 {
     public class Commands
     {
+        private int GetMin(int value1, int value2)
+        {
+            int result = -1;
+
+            if (value1 == -1 && value2 > value1)
+                result = value2;
+            else if (value2 == -1 && value1 > value2)
+                result = value1;
+            else if (value1 > -1 && value2 > -1)
+            {
+                result = value1 <= value2 ? value1 : value2;
+            }
+
+            return result;
+        }
+
+        private bool IsCharacterFromAlphabet(char ch)
+        {
+            if (char.IsLetterOrDigit(ch) || ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '(' || ch == ')')
+                return true;
+            return false;
+        }
+
+        private bool isNumber(string source)
+        {
+            bool status = true;
+
+            if (source.Length == 0)
+                status = false;
+            else
+            {
+                foreach(char ch in source)
+                {
+                    if (!char.IsDigit(ch))
+                    {
+                        status = false;
+                        break;
+                    }
+                }
+            }
+
+            return status;
+        }
+
+        private bool isId(string source)
+        {
+            bool status = true;
+
+            if (source.Length == 0)
+                status = false;
+            else
+            {
+                bool isFirstCharacter = true;
+                foreach (char ch in source)
+                {
+                    if (isFirstCharacter && !char.IsLetter(ch))
+                    {
+                        status = false;
+                        break;
+                    }
+                    else if (!char.IsLetterOrDigit(ch))
+                    {
+                        status = false;
+                        break;
+                    }
+                }
+            }
+
+            return status;
+        }
+
+        private bool expression(string source)
+        {
+            int openBracketPos = source.IndexOf("(");
+            int closeBracketPos = source.LastIndexOf(")");
+            string transformedSource;
+
+            if (openBracketPos > -1 && closeBracketPos > -1)
+                transformedSource = source.Remove(openBracketPos, closeBracketPos - openBracketPos);
+            else if ((openBracketPos > -1 && closeBracketPos == -1) || (openBracketPos == -1 && closeBracketPos > -1))
+                return false;
+            else
+                transformedSource = source;
+
+            int posFirstAddSign = transformedSource.IndexOf("+");
+            int posFirstSubSign = transformedSource.IndexOf("-");
+            int posSplit = GetMin(posFirstAddSign, posFirstSubSign);
+
+            bool status;
+
+            if (posSplit == -1)
+                status = term(source);
+            else
+            {
+                posSplit = posSplit < openBracketPos ? posSplit : posSplit + closeBracketPos - openBracketPos;
+
+                string substring1 = source.Substring(0, posSplit);
+                string substring2 = source.Substring(posSplit + 1, source.Length - 1 - posSplit);
+
+                status = term(substring1) && arithmetic1(substring2);
+            }
+
+            return status;
+        }
+
+        private bool term(string source)
+        {
+            int openBracketPos = source.IndexOf("(");
+            int closeBracketPos = source.LastIndexOf(")");
+            string transformedSource;
+
+            if (openBracketPos > -1 && closeBracketPos > -1)
+                transformedSource = source.Remove(openBracketPos, closeBracketPos - openBracketPos);
+            else if ((openBracketPos > -1 && closeBracketPos == -1) || (openBracketPos == -1 && closeBracketPos > -1))
+                return false;
+            else
+                transformedSource = source;
+
+            int posFirstMulSign = transformedSource.IndexOf("*");
+            int posFirstDivSign = transformedSource.IndexOf("/");
+            int posSplit = GetMin(posFirstMulSign, posFirstDivSign);
+
+            bool status;
+
+            if (posSplit == -1)
+                status = symbols(source);
+            else
+            {
+                posSplit = posSplit < openBracketPos ? posSplit : posSplit + closeBracketPos - openBracketPos;
+
+                string substring1 = source.Substring(0, posSplit);
+                string substring2 = source.Substring(posSplit + 1, source.Length - 1 - posSplit);
+
+                status = symbols(substring1) && arithmetic2(substring2);
+            }
+
+            return status;
+        }
+
+        private bool arithmetic1(string source)
+        {
+            bool status = true;
+
+            if (source.Length != 0)
+            {
+                int openBracketPos = source.IndexOf("(");
+                int closeBracketPos = source.LastIndexOf(")");
+                string transformedSource;
+
+                if (openBracketPos > -1 && closeBracketPos > -1)
+                    transformedSource = source.Remove(openBracketPos, closeBracketPos - openBracketPos);
+                else if ((openBracketPos > -1 && closeBracketPos == -1) || (openBracketPos == -1 && closeBracketPos > -1))
+                    return false;
+                else
+                    transformedSource = source;
+
+                int posFirstAddSign = transformedSource.IndexOf("+");
+                int posFirstSubSign = transformedSource.IndexOf("-");
+                int posSplit = GetMin(posFirstAddSign, posFirstSubSign);
+
+                if (posSplit == -1)
+                    status = term(source);
+                else
+                {
+                    posSplit = posSplit < openBracketPos ? posSplit : posSplit + closeBracketPos - openBracketPos;
+
+                    string substring1 = source.Substring(0, posSplit);
+                    string substring2 = source.Substring(posSplit + 1, source.Length - 1 - posSplit);
+
+                    status = term(substring1) && arithmetic1(substring2);
+                }
+            }
+
+            return status;
+        }
+
+        private bool arithmetic2(string source)
+        {
+            bool status = true;
+
+            if (source.Length != 0)
+            {
+                int openBracketPos = source.IndexOf("(");
+                int closeBracketPos = source.LastIndexOf(")");
+                string transformedSource;
+
+                if (openBracketPos > -1 && closeBracketPos > -1)
+                    transformedSource = source.Remove(openBracketPos, closeBracketPos - openBracketPos);
+                else if ((openBracketPos > -1 && closeBracketPos == -1) || (openBracketPos == -1 && closeBracketPos > -1))
+                    return false;
+                else
+                    transformedSource = source;
+
+                int posFirstMulSign = transformedSource.IndexOf("*");
+                int posFirstDivSign = transformedSource.IndexOf("/");
+                int posSplit = GetMin(posFirstMulSign, posFirstDivSign);
+
+                if (posSplit == -1)
+                    status = term(source);
+                else
+                {
+                    posSplit = posSplit < openBracketPos ? posSplit : posSplit + closeBracketPos - openBracketPos;
+
+                    string substring1 = source.Substring(0, posSplit);
+                    string substring2 = source.Substring(posSplit + 1, source.Length - 1 - posSplit);
+
+                    status = symbols(substring1) && arithmetic2(substring2);
+                }
+            }
+
+            return status;
+        }
+
+        private bool symbols(string source)
+        {
+            bool status = true;
+
+            if (source.StartsWith("(") && source.EndsWith(")"))
+            {
+                status = expression(source.Substring(1, source.Length - 2));
+            }
+            else
+            {
+                status = isNumber(source) || isId(source);
+            }
+
+            return status;
+        }
+
         private int checkExpression(string source)
         {
-            
-            int state = 1;
-            int position = 1;
+            int status = 0;
 
-            foreach (char symbol in source)
+            source.Replace(" ", "");
+
+            foreach(char ch in source)
             {
-                switch (state)
+                status++;
+                if (!IsCharacterFromAlphabet(ch))
                 {
-                    case 1:
-                        {
-                            if (symbol == '0')
-                                state = 2;
-                            else
-                                return position;
-                            break;
-                        }
-                    case 2:
-                        {
-                            if (symbol == '1')
-                                state = 3;
-                            else
-                                return position;
-                            break;
-                        }
-                    case 3:
-                        {
-                            if (symbol == '1')
-                                state = 4;
-                            else if (symbol == '2')
-                                state = 7;
-                            else if (symbol == '3')
-                                state = 6;
-                            else
-                                return position;
-                            break;
-                        }
-                    case 4:
-                        {
-                            if (symbol == '2')
-                                state = 5;
-                            else
-                                return position;
-                            break;
-                        }
-                    case 5:
-                        {
-                            if (symbol == '1')
-                                state = 4;
-                            else if (symbol == '3')
-                                state = 6;
-                            else
-                                return position;
-                            break;
-                        }
-                    case 6:
-                        {
-                            if (symbol == '2')
-                                state = 6;
-                            else
-                                return position;
-                            break;
-                        }
-                    default: return -2;
+                    return status;
                 }
-
-                position++;
             }
 
-            if (state == 6 || state == 7)
-            {
-                return -1;
-            }
+            status = expression(source) ? -1 : -2;
 
-            return position;
+            return status;
         }
 
         public void CommandCreate()
@@ -232,11 +403,11 @@ namespace Lab6
                 }
                 else if (lineStatus == -2)
                 {
-                    StaticData.mainForm.ResultsTextBox.Text += "Line " + (i + 1) + ": PROCESSING ERROR, very big expression" + Environment.NewLine;
+                    StaticData.mainForm.ResultsTextBox.Text += "Line " + (i + 1) + ": PROCESSING ERROR, wrong line" + Environment.NewLine;
                 }
                 else
                 {
-                    StaticData.mainForm.ResultsTextBox.Text += "Line " + (i + 1) + ": SYNTAX ERROR, wrong command at position " + lineStatus + Environment.NewLine;
+                    StaticData.mainForm.ResultsTextBox.Text += "Line " + (i + 1) + ": SYNTAX ERROR, wrong symbol at position " + lineStatus + Environment.NewLine;
                 }
             }
 
