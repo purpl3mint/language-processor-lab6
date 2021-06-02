@@ -117,11 +117,9 @@ namespace Lab6
                 posSplit = posSplit < openBracketPos ? posSplit : posSplit + closeBracketPos - openBracketPos;
 
                 string substring1 = source.Substring(0, posSplit);
-                string substring2 = source.Substring(posSplit + 1, source.Length - 1 - posSplit);
+                string substring2 = source.Substring(posSplit, source.Length - posSplit);
 
                 status = term(substring1);
-
-                StaticData.mainForm.ResultsTextBox.Text += posFirstAddSign == posSplit ? " - +" : " - -";
 
                 status = arithmetic1(substring2);
             }
@@ -160,10 +158,9 @@ namespace Lab6
                 posSplit = posSplit < openBracketPos ? posSplit : posSplit + closeBracketPos - openBracketPos;
 
                 string substring1 = source.Substring(0, posSplit);
-                string substring2 = source.Substring(posSplit + 1, source.Length - 1 - posSplit);
+                string substring2 = source.Substring(posSplit, source.Length - posSplit);
 
                 status = symbols(substring1);
-                StaticData.mainForm.ResultsTextBox.Text += posFirstMulSign == posSplit ? " - *" : " - /";
                 status = arithmetic2(substring2);
             }
 
@@ -172,7 +169,8 @@ namespace Lab6
 
         private bool arithmetic1(string source)
         {
-            StaticData.mainForm.ResultsTextBox.Text += " - A";
+            StaticData.mainForm.ResultsTextBox.Text += " - A - " + source[0];
+            source = source.Substring(1);
 
             bool status = true;
 
@@ -203,10 +201,9 @@ namespace Lab6
                     posSplit = posSplit < openBracketPos ? posSplit : posSplit + closeBracketPos - openBracketPos;
 
                     string substring1 = source.Substring(0, posSplit);
-                    string substring2 = source.Substring(posSplit + 1, source.Length - 1 - posSplit);
+                    string substring2 = source.Substring(posSplit, source.Length - posSplit);
 
                     status = term(substring1);
-                    StaticData.mainForm.ResultsTextBox.Text += posFirstAddSign == posSplit ? " - +" : " - -";
                     status = arithmetic1(substring2);
                 }
             }
@@ -216,7 +213,8 @@ namespace Lab6
 
         private bool arithmetic2(string source)
         {
-            StaticData.mainForm.ResultsTextBox.Text += " - B";
+            StaticData.mainForm.ResultsTextBox.Text += " - B - " + source[0];
+            source = source.Substring(1);
 
             bool status = true;
 
@@ -245,12 +243,10 @@ namespace Lab6
                 else
                 {
                     posSplit = posSplit < openBracketPos ? posSplit : posSplit + closeBracketPos - openBracketPos;
-
                     string substring1 = source.Substring(0, posSplit);
-                    string substring2 = source.Substring(posSplit + 1, source.Length - 1 - posSplit);
+                    string substring2 = source.Substring(posSplit, source.Length - posSplit);
 
                     status = symbols(substring1);
-                    StaticData.mainForm.ResultsTextBox.Text += posFirstMulSign == posSplit ? " - *" : " - /";
                     status = arithmetic2(substring2);
                 }
             }
