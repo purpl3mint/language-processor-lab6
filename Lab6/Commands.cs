@@ -271,6 +271,8 @@ namespace Lab6
                     StaticData.mainForm.ResultsTextBox.Text += " - num";
                 else if (isId(source))
                     StaticData.mainForm.ResultsTextBox.Text += " - id";
+                else
+                    StaticData.mainForm.ResultsTextBox.Text += " - ERORR";
             }
 
             return status;
